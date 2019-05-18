@@ -6,6 +6,8 @@ import {
   Row
 } from 'reactstrap';
 
+import SearchBar from '../components/SearchBar';
+import UserThumb from '../components/UserThumb';
 import Users, { UsersActions } from '../actions/Users';
 import { GlobalStore } from '../reducers/rootReducer';
 import { UserStore } from '../reducers/users';
@@ -15,7 +17,15 @@ type Props =
   & UserStore
   & UsersActions;
 
-class UsersList extends React.Component<Props> {
+interface State {
+  searchTerm: string;
+}
+
+class UsersList extends React.Component<Props, State> {
+  public state: State = {
+    searchTerm: '',
+  };
+
   public componentDidMount(): void {
     const {
       fetchUsersList,
@@ -27,18 +37,26 @@ class UsersList extends React.Component<Props> {
     }
   }
 
+  public handleSearchChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    this.setState({
+      searchTerm: event.currentTarget.value,
+    });
+  }
+
   public renderUsersList = (): React.ReactNode => {
     const { usersList }: Props = this.props;
 
     return usersList.map((user: UserType) => (
-      <Col lg="6" key={user.login.username}>
-        {user.login.username}
+      <Col lg="3" key={user.login.username}>
+        <UserThumb user={user} />
       </Col>
     ));
   }
 
   public render(): React.ReactNode {
     const { usersListLoadingState }: Props = this.props;
+    const { searchTerm }: State = this.state;
 
     if (usersListLoadingState === 'fetching') {
       return <div>Loading...</div>;
@@ -50,6 +68,18 @@ class UsersList extends React.Component<Props> {
 
     return (
       <Container fluid={true}>
+        <h1>Users</h1>
+        <Row>
+          <Col xs="12">
+            <SearchBar
+              term={searchTerm}
+              onChange={this.handleSearchChange}
+            />
+          </Col>
+        </Row>
+
+        <hr />
+
         <Row>
           {this.renderUsersList()}
         </Row>

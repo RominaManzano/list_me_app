@@ -24,7 +24,7 @@ class Users {
     try {
       res = await API.get('/api', {
         headers: { 'Content-Type': 'application/json' },
-        params: { results: 30 },
+        params: { results: 32 },
       });
     } catch (error) {
       dispatch({
