@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { store } from './store';
 import Routes from './Routes';
+import { store } from './store';
 
 const App: React.FC = () => {
   return (
@@ -10,6 +10,6 @@ const App: React.FC = () => {
       <Routes />
     </Provider>
   );
-}
+};
 
 export default App;

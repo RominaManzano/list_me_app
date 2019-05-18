@@ -22,11 +22,18 @@ class UsersList extends React.Component<Props> {
     }
   }
 
+  public renderUsersList = (): React.ReactNode => {
+    const { usersList }: Props = this.props;
+
+    return usersList.map((user: UserType) => (
+      <li key={user.login.username}>
+        {user.login.username}
+      </li>
+    ));
+  }
+
   public render(): React.ReactNode {
-    const {
-      usersList,
-      usersListLoadingState,
-    }: Props = this.props;
+    const { usersListLoadingState }: Props = this.props;
 
     if (usersListLoadingState === 'fetching') {
       return <div>Loading...</div>;
@@ -39,9 +46,7 @@ class UsersList extends React.Component<Props> {
     return (
       <div>
         <ul>
-          {
-            usersList.map((user: UserType) => <li key={user.login.username}>{user.login.username}</li>)
-          }
+          {this.renderUsersList()}
         </ul>
       </div>
     );

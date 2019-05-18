@@ -28,18 +28,17 @@ class Users {
       });
     } catch (error) {
       dispatch({
-        type: Users.FETCH_USERS_LIST_ERROR,
         payload: error,
+        type: Users.FETCH_USERS_LIST_ERROR,
       });
       return;
     }
 
     dispatch({
-      type: Users.FETCH_USERS_LIST_SUCCESS,
       payload: res.data,
+      type: Users.FETCH_USERS_LIST_SUCCESS,
     });
   }
 }
-
 
 export default Users;

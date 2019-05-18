@@ -1,5 +1,5 @@
 import thunk from 'redux-thunk';
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory, History } from 'history';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import {
   applyMiddleware,
@@ -8,13 +8,14 @@ import {
   createStore,
   Reducer,
   Store,
+  Middleware,
 } from 'redux';
 
 import reducers from './reducers/rootReducer';
 
-const history = createBrowserHistory();
-const routeMiddleware = routerMiddleware(history);
-const middlewares = [
+const history: History = createBrowserHistory();
+const routeMiddleware: Middleware = routerMiddleware(history);
+const middlewares: Middleware[] = [
   thunk,
   routeMiddleware,
 ];
@@ -24,7 +25,7 @@ const store: Store = createStore(
     ...reducers,
     router: routerReducer,
   }),
-  compose(applyMiddleware(...middlewares))
+  compose(applyMiddleware(...middlewares)),
 );
 
 export { store, history };
