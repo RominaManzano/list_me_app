@@ -1,5 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  Col,
+  Container,
+  Row
+} from 'reactstrap';
 
 import Users, { UsersActions } from '../actions/Users';
 import { GlobalStore } from '../reducers/rootReducer';
@@ -26,9 +31,9 @@ class UsersList extends React.Component<Props> {
     const { usersList }: Props = this.props;
 
     return usersList.map((user: UserType) => (
-      <li key={user.login.username}>
+      <Col lg="6" key={user.login.username}>
         {user.login.username}
-      </li>
+      </Col>
     ));
   }
 
@@ -44,11 +49,11 @@ class UsersList extends React.Component<Props> {
     }
 
     return (
-      <div>
-        <ul>
+      <Container fluid={true}>
+        <Row>
           {this.renderUsersList()}
-        </ul>
-      </div>
+        </Row>
+      </Container>
     );
   }
 }
