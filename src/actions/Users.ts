@@ -23,9 +23,8 @@ class Users {
 
     try {
       res = await API.get('/api', {
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
+        params: { results: 30 },
       });
     } catch (error) {
       dispatch({
@@ -37,7 +36,7 @@ class Users {
 
     dispatch({
       type: Users.FETCH_USERS_LIST_SUCCESS,
-      payload: res,
+      payload: res.data,
     });
   }
 }

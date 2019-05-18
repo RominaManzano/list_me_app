@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Users, { UsersActions } from '../actions/Users';
 import { GlobalStore } from '../reducers/rootReducer';
 import { UserStore } from '../reducers/users';
+import { UserType } from '../types/UserType';
 
 type Props =
   & UserStore
@@ -11,15 +12,37 @@ type Props =
 
 class UsersList extends React.Component<Props> {
   public componentDidMount(): void {
-    const { fetchUsersList }: Props = this.props;
+    const {
+      fetchUsersList,
+      usersListLoadingState,
+    }: Props = this.props;
 
-    fetchUsersList();
+    if (usersListLoadingState === 'needed') {
+      fetchUsersList();
+    }
   }
 
   public render(): React.ReactNode {
+    const {
+      usersList,
+      usersListLoadingState,
+    }: Props = this.props;
+
+    if (usersListLoadingState === 'fetching') {
+      return <div>Loading...</div>;
+    }
+
+    if (usersListLoadingState === 'error') {
+      return <div>Unexpected Error</div>;
+    }
+
     return (
       <div>
-        USERS
+        <ul>
+          {
+            usersList.map((user: UserType) => <li key={user.login.username}>{user.login.username}</li>)
+          }
+        </ul>
       </div>
     );
   }
