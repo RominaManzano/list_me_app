@@ -3,6 +3,10 @@ import { AxiosResponse } from 'axios';
 
 import API from '../data/api';
 
+export interface UsersActions {
+  fetchUsersList: () => {};
+}
+
 class Users {
   public static FETCH_USERS_LIST_TRIGGERED: string = 'FETCH_USER_TRIGGERED';
   public static FETCH_USERS_LIST_SUCCESS: string = 'FETCH_USERS_LIST_SUCCESS';
@@ -19,24 +23,22 @@ class Users {
 
     try {
       res = await API.get('/api', {
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
+        params: { results: 32 },
       });
     } catch (error) {
       dispatch({
-        type: Users.FETCH_USERS_LIST_ERROR,
         payload: error,
+        type: Users.FETCH_USERS_LIST_ERROR,
       });
       return;
     }
 
     dispatch({
+      payload: res.data,
       type: Users.FETCH_USERS_LIST_SUCCESS,
-      payload: res,
     });
   }
 }
-
 
 export default Users;

@@ -1,19 +1,20 @@
 import React from 'react';
-import {
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 
 import UsersList from './pages/UsersList';
+import UserDetail from './pages/UserDetails';
+import { store, history } from './store';
 
 const Routes: React.FC = () => {
   return (
-    <Switch>
-      <Route exact path="/" component={UsersList} />
-      <Route path="/:id" component={() => <div>DETAIL</div>} />
-    </Switch>
+    <ConnectedRouter store={store} history={history}>
+      <BrowserRouter>
+        <Route exact={true} path="/" component={UsersList} />
+        <Route path="/:id" component={UserDetail} />
+      </BrowserRouter>
+    </ConnectedRouter>
   );
-}
+};
 
 export default Routes;
-

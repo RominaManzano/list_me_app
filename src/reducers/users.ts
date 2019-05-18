@@ -10,9 +10,9 @@ export interface UserStore {
 const initialState: UserStore = {
   usersList: [],
   usersListLoadingState: 'needed',
-}
+};
 
-function users(state: UserStore = initialState, action: ActionType) {
+function users(state: UserStore = initialState, action: ActionType): UserStore {
   switch (action.type) {
     case Users.FETCH_USERS_LIST_TRIGGERED: {
       return {
@@ -25,22 +25,21 @@ function users(state: UserStore = initialState, action: ActionType) {
         ...state,
         usersList: action.payload.results,
         usersListLoadingState: 'loaded',
-      }
+      };
     }
     case Users.FETCH_USERS_LIST_ERROR: {
       return {
         ...state,
         usersList: [],
         usersListLoadingState: 'error',
-      }
+      };
     }
     default: {
       return {
-        ...state
+        ...state,
       };
     }
   }
 }
 
 export default users;
-
