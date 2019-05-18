@@ -3,6 +3,10 @@ import { AxiosResponse } from 'axios';
 
 import API from '../data/api';
 
+export interface UsersActions {
+  fetchUsersList: () => {};
+}
+
 class Users {
   public static FETCH_USERS_LIST_TRIGGERED: string = 'FETCH_USER_TRIGGERED';
   public static FETCH_USERS_LIST_SUCCESS: string = 'FETCH_USERS_LIST_SUCCESS';
