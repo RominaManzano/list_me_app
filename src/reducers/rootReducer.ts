@@ -1,5 +1,9 @@
-import Users from './users';
+import users, { UserStore } from './users';
+
+export interface GlobalStore {
+  users: UserStore;
+}
 
 export default {
-  Users,
+  users,
 };
