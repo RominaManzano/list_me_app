@@ -11,6 +11,7 @@ class Users {
   public static FETCH_USERS_LIST_TRIGGERED: string = 'FETCH_USER_TRIGGERED';
   public static FETCH_USERS_LIST_SUCCESS: string = 'FETCH_USERS_LIST_SUCCESS';
   public static FETCH_USERS_LIST_ERROR: string = 'FETCH_USERS_LIST_ERROR';
+  public static SEARCH_USERS_TRIGGERED: string = 'SEARCH_USERS_TRIGGERED';
 
   public static fetchUsersList = () => async (
     dispatch: Dispatch,
@@ -37,6 +38,15 @@ class Users {
     dispatch({
       payload: res.data,
       type: Users.FETCH_USERS_LIST_SUCCESS,
+    });
+  }
+
+  public static searchUsers = (searchTerm: string) => (
+    dispatch: Dispatch,
+  ) => {
+    dispatch({
+      type: Users.SEARCH_USERS_TRIGGERED,
+      payload: searchTerm,
     });
   }
 }

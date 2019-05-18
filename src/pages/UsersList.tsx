@@ -44,6 +44,10 @@ class UsersList extends React.Component<Props, State> {
     });
   }
 
+  public handleSearchSubmit = (event: React.SyntheticEvent<HTMLInputElement>) => {
+    event.preventDefault();
+  }
+
   public renderUsersList = (): React.ReactNode => {
     const { usersList }: Props = this.props;
 
