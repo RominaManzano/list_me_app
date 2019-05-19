@@ -21,7 +21,7 @@ class Users {
       type: Users.FETCH_USERS_LIST_TRIGGERED,
     });
 
-    let res: AxiosResponse | null = null;
+    let res: AxiosResponse;
 
     try {
       res = await API.get('/api', {
@@ -36,10 +36,12 @@ class Users {
       return;
     }
 
-    dispatch({
-      payload: res.data,
-      type: Users.FETCH_USERS_LIST_SUCCESS,
-    });
+    setTimeout(() => {
+      dispatch({
+        payload: res.data,
+        type: Users.FETCH_USERS_LIST_SUCCESS,
+      });
+    }, 800);
   }
 
   public static searchUsers = (searchTerm: string) => (

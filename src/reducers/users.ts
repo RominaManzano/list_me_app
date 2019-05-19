@@ -40,7 +40,10 @@ function users(state: UserStore = initialState, action: ActionType): UserStore {
         const containsFirst: boolean = name.first.includes(searchTerm.toLowerCase());
         const containsLast: boolean = name.last.includes(searchTerm.toLowerCase());
 
-        return containsFirst || containsLast;
+        const fullName: string = `${name.first} ${name.last}`;
+        const containsBoth: boolean = fullName.includes(searchTerm.toLowerCase());
+
+        return containsFirst || containsLast || containsBoth;
       });
 
       return {

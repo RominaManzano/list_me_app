@@ -7,6 +7,8 @@ import {
   Row,
 } from 'reactstrap';
 
+import Message from '../components/Message';
+import PlaceholderThumb from '../components/PlaceholderThumb';
 import SearchBar from '../components/SearchBar';
 import UserThumb from '../components/UserThumb';
 import Users, { UsersActions } from '../actions/Users';
@@ -81,6 +83,22 @@ class UsersList extends React.Component<Props, State> {
     );
   }
 
+  public renderPlaceholders = (): React.ReactNode => {
+    const placeholders: React.ReactNode[] = [];
+
+    for (let i: number = 0; i < 32; i = i + 1) {
+      const placeholder: React.ReactNode = (
+        <Col lg="3" md="6" key={i}>
+          <PlaceholderThumb />
+        </Col>
+      );
+
+      placeholders.push(placeholder);
+    }
+
+    return placeholders;
+  }
+
   public renderUsersList = (): React.ReactNode => {
     const {
       usersList,
@@ -88,31 +106,35 @@ class UsersList extends React.Component<Props, State> {
     }: Props = this.props;
 
     if (usersListLoadingState === 'fetching') {
-      return <div>Loading...</div>;
+      return this.renderPlaceholders();
     }
 
     if (usersList.length <= 0) {
-      return <div>No results found</div>;
+      return (
+        <Message
+          type="info"
+          message="No results found"
+        />
+      );
+    }
+
+    if (usersListLoadingState === 'error') {
+      return (
+        <Message
+          type="error"
+          message="Oops! Seems you ecountered an error."
+        />
+      );
     }
 
     return usersList.map((user: UserType) => (
-      <Col
-        key={user.login.username}
-        lg="3"
-        md="6"
-      >
+      <Col key={user.login.username} lg="3" md="6">
         <UserThumb user={user} />
       </Col>
     ));
   }
 
   public render(): React.ReactNode {
-    const { usersListLoadingState }: Props = this.props;
-
-    if (usersListLoadingState === 'error') {
-      return <div>Unexpected Error</div>;
-    }
-
     return (
       <Container fluid={true}>
         <Title>
@@ -131,9 +153,9 @@ class UsersList extends React.Component<Props, State> {
 
         <hr />
 
-        <Row>
+        <StyledRow>
           {this.renderUsersList()}
-        </Row>
+        </StyledRow>
       </Container>
     );
   }
@@ -166,4 +188,9 @@ const Description: React.FC = styled.p`
   padding: 10px 0;
   color: #797979;
   text-align: center;
+`;
+
+const StyledRow: React.FC = styled(Row)`
+  height: 65vh;
+  overflow: scroll;
 `;

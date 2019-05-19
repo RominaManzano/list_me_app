@@ -43,6 +43,9 @@ class UserThumb extends React.Component<Props> {
           <ThumbImage background={thumbnail} />
           <ThumbName>
             {displayName}
+            <ThumbUserName>
+              {user.login.username}
+            </ThumbUserName>
           </ThumbName>
         </Thumb>
         <UserModal
@@ -72,11 +75,9 @@ const Thumb: React.FC<ThumbProps> = styled.div<ThumbProps>`
   animation: ${zoomIn} 0.4s linear;
 
   &:hover {
-    transform: scale(1.06);
-    -webkit-box-shadow: 0px 0px 5px 1px #fb9ed173;
-    -moz-box-shadow: 0px 0px 5px 1px #fb9ed173;
-    box-shadow: 0px 0px 5px 1px #fb9ed173;
-    border: 1px solid #ffd3eb;
+    transform: scale(1.05);
+    border: 1px solid #f77d92;
+    background-color: #f77d920a;
     cursor: pointer;
   }
 `;
@@ -96,4 +97,9 @@ const ThumbName: React.FC = styled.div`
   margin: 0 0 0 10px;
   font-weight: 500;
   color: #7b7b7b;
+`;
+
+const ThumbUserName: React.FC = styled.div`
+  font-size: 12px;
+  color: #b3b2b2;
 `;
