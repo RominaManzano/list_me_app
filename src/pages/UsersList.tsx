@@ -193,4 +193,8 @@ const Description: React.FC = styled.p`
 const StyledRow: React.FC = styled(Row)`
   height: 65vh;
   overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
