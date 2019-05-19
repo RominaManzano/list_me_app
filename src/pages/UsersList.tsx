@@ -44,12 +44,31 @@ class UsersList extends React.Component<Props, State> {
     });
   }
 
-  public handleSearchSubmit = (event: React.SyntheticEvent<HTMLInputElement>) => {
+  public handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const { searchTerm }: State = this.state;
+    const {
+      fetchUsersList,
+      searchUsers,
+    }: Props = this.props;
+
     event.preventDefault();
+
+    if (!searchTerm) {
+      fetchUsersList();
+    } else {
+      searchUsers(searchTerm);
+    }
   }
 
   public renderUsersList = (): React.ReactNode => {
-    const { usersList }: Props = this.props;
+    const {
+      usersList,
+      usersListLoadingState,
+    }: Props = this.props;
+
+    if (usersListLoadingState === 'fetching') {
+      return <div>Loading...</div>;
+    }
 
     return usersList.map((user: UserType) => (
       <Col lg="3" key={user.login.username}>
@@ -61,10 +80,6 @@ class UsersList extends React.Component<Props, State> {
   public render(): React.ReactNode {
     const { usersListLoadingState }: Props = this.props;
     const { searchTerm }: State = this.state;
-
-    if (usersListLoadingState === 'fetching') {
-      return <div>Loading...</div>;
-    }
 
     if (usersListLoadingState === 'error') {
       return <div>Unexpected Error</div>;
@@ -78,6 +93,7 @@ class UsersList extends React.Component<Props, State> {
             <SearchBar
               term={searchTerm}
               onChange={this.handleSearchChange}
+              onSubmit={this.handleSearchSubmit}
             />
           </Col>
         </Row>
@@ -100,6 +116,7 @@ const mapStateToProps: MapStateToProps = ({ users }: GlobalStore) => ({
 
 const mapDispatchToProps: UsersActions = {
   fetchUsersList: Users.fetchUsersList,
+  searchUsers: Users.searchUsers,
 };
 
 export default connect(

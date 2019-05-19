@@ -5,6 +5,7 @@ import API from '../data/api';
 
 export interface UsersActions {
   fetchUsersList: () => {};
+  searchUsers: (searchTerm: string) => {};
 }
 
 class Users {

@@ -10,16 +10,18 @@ import { MdSearch } from 'react-icons/md';
 interface Props {
   term: string;
   onChange: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const SearchBar: React.FC<Props> = (props: Props) => {
   const {
     term,
     onChange,
+    onSubmit,
   }: Props = props;
 
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <InputGroup>
         <Input
           value={term}
@@ -27,12 +29,15 @@ const SearchBar: React.FC<Props> = (props: Props) => {
           placeholder="Input name..."
         />
         <InputGroupAddon addonType="append">
-          <Button color="primary">
+          <Button
+            color="primary"
+            type="submit"
+          >
             <MdSearch />
           </Button>
         </InputGroupAddon>
       </InputGroup>
-    </div>
+    </form>
   );
 };
 

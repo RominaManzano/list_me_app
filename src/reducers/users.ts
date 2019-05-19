@@ -37,8 +37,8 @@ function users(state: UserStore = initialState, action: ActionType): UserStore {
     case Users.SEARCH_USERS_TRIGGERED: {
       const searchTerm: string = action.payload;
       const usersList: UserType[] = state.usersList.filter(({ name }: UserType) => {
-        const containsFirst: boolean = name.first.includes(searchTerm);
-        const containsLast: boolean = name.last.includes(searchTerm);
+        const containsFirst: boolean = name.first.includes(searchTerm.toLowerCase());
+        const containsLast: boolean = name.last.includes(searchTerm.toLowerCase());
 
         return containsFirst || containsLast;
       });
