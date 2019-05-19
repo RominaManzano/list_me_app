@@ -137,10 +137,11 @@ const Name: React.FC = styled.h4`
   color: white;
 `;
 
-const UserName: React.FC = styled.h6`
+const UserName: React.FC = styled.div`
   text-align: center;
   font-weight: 400;
   opacity: 0.8;
+  font-size: 0.6em;
 `;
 
 const StyledHR: React.FC = styled.hr`

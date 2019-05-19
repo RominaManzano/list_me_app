@@ -7,6 +7,7 @@ import {
   Row,
 } from 'reactstrap';
 
+import Message from '../components/Message';
 import PlaceholderThumb from '../components/PlaceholderThumb';
 import SearchBar from '../components/SearchBar';
 import UserThumb from '../components/UserThumb';
@@ -109,7 +110,21 @@ class UsersList extends React.Component<Props, State> {
     }
 
     if (usersList.length <= 0) {
-      return <div>No results found</div>;
+      return (
+        <Message
+          type="info"
+          message="No results found"
+        />
+      );
+    }
+
+    if (usersListLoadingState === 'error') {
+      return (
+        <Message
+          type="error"
+          message="Oops! Seems you ecountered an error."
+        />
+      );
     }
 
     return usersList.map((user: UserType) => (
@@ -120,12 +135,6 @@ class UsersList extends React.Component<Props, State> {
   }
 
   public render(): React.ReactNode {
-    const { usersListLoadingState }: Props = this.props;
-
-    if (usersListLoadingState === 'error') {
-      return <div>Unexpected Error</div>;
-    }
-
     return (
       <Container fluid={true}>
         <Title>
