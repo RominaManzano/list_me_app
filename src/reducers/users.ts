@@ -46,7 +46,7 @@ function users(state: UserStore = initialState, action: ActionType): UserStore {
       return {
         ...state,
         usersList,
-      }
+      };
     }
     default: {
       return {

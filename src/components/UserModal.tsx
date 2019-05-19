@@ -24,9 +24,8 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
     picture,
   }: UserType = user;
 
-  const displayName: string = `
-    ${TextHelper.capitalize(first)} ${TextHelper.capitalize(last)}
-  `;
+  const displayName: string = `${TextHelper.capitalize(first)} ${TextHelper.capitalize(last)}`;
+  const displayGender: string = TextHelper.capitalize(user.gender);
 
   const containerStyle: any = {
     background: 'white', margin: '-15px', padding: '30px',
@@ -37,7 +36,7 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
       <ModalBody style={containerStyle}>
         <UserDetail label="Email" display={user.email} />
         <StyledHR />
-        <UserDetail label="Gender" display={user.gender} />
+        <UserDetail label="Gender" display={displayGender} />
         <StyledHR />
         <UserDetail label="Location" display={user.location.timezone.description} />
         <StyledHR />

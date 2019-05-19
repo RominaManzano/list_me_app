@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   Col,
   Container,
-  Row
+  Row,
 } from 'reactstrap';
 
 import SearchBar from '../components/SearchBar';
@@ -61,6 +61,26 @@ class UsersList extends React.Component<Props, State> {
     }
   }
 
+  public renderSearchBar = (): React.ReactNode => {
+    const { searchTerm }: State = this.state;
+
+    return (
+      <Row>
+        <Col
+          lg={{ size: 4, offset: 4 }}
+          md={{ size: 6, offset: 3 }}
+          xs="12"
+        >
+          <SearchBar
+            term={searchTerm}
+            onChange={this.handleSearchChange}
+            onSubmit={this.handleSearchSubmit}
+          />
+        </Col>
+      </Row>
+    );
+  }
+
   public renderUsersList = (): React.ReactNode => {
     const {
       usersList,
@@ -71,10 +91,15 @@ class UsersList extends React.Component<Props, State> {
       return <div>Loading...</div>;
     }
 
+    if (usersList.length <= 0) {
+      return <div>No results found</div>;
+    }
+
     return usersList.map((user: UserType) => (
       <Col
         key={user.login.username}
-        lg="3" md="6"
+        lg="3"
+        md="6"
       >
         <UserThumb user={user} />
       </Col>
@@ -83,7 +108,6 @@ class UsersList extends React.Component<Props, State> {
 
   public render(): React.ReactNode {
     const { usersListLoadingState }: Props = this.props;
-    const { searchTerm }: State = this.state;
 
     if (usersListLoadingState === 'error') {
       return <div>Unexpected Error</div>;
@@ -99,21 +123,11 @@ class UsersList extends React.Component<Props, State> {
           click on their thumbnail. To close the modal, click on any area outise of
           it or the <b>X</b> icon.
           <br />
-          Input a name or last name to search for a specific user.
+          Input a name or last name to search for a specific user. To reset the list,
+          clear the search input.
         </Description>
-        <Row>
-          <Col
-            lg={{ size: 4, offset: 4 }}
-            md={{ size: 6, offset: 3 }}
-            xs="12"
-          >
-            <SearchBar
-              term={searchTerm}
-              onChange={this.handleSearchChange}
-              onSubmit={this.handleSearchSubmit}
-            />
-          </Col>
-        </Row>
+
+        {this.renderSearchBar()}
 
         <hr />
 

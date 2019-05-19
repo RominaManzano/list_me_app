@@ -53,7 +53,7 @@ class UserThumb extends React.Component<Props> {
       </React.Fragment>
     );
   }
-};
+}
 
 export default UserThumb;
 
