@@ -95,8 +95,9 @@ class UsersList extends React.Component<Props, State> {
           ListMeApp
         </Title>
         <Description>
-          Click on a user thumbnail to get more information. If you want to get
-          detailed contact information, click on the <b>More</b> link to see their profile.
+          If you want to get detailed contact information for a specific user,
+          click on their thumbnail. To close the modal, click on any area outise of
+          it or the <b>X</b> icon.
           <br />
           Input a name or last name to search for a specific user.
         </Description>

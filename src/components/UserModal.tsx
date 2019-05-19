@@ -1,13 +1,15 @@
+// tslint:disable: no-any
 import React from 'react';
 import styled from 'styled-components';
 import {
-  Button,
   Modal,
   ModalBody,
-  ModalFooter,
 } from 'reactstrap';
+import { IconContext } from 'react-icons';
+import { MdClose } from 'react-icons/md';
 
 import TextHelper from '../utils/TextHelper';
+import UserDetail from './UserDetail';
 import { UserType } from '../types/UserType';
 
 interface Props {
@@ -30,6 +32,22 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
     background: 'white', margin: '-15px', padding: '30px',
   };
 
+  const renderUserDetails: () => React.ReactNode = (): React.ReactNode => {
+    return (
+      <ModalBody style={containerStyle}>
+        <UserDetail label="Email" display={user.email} />
+        <StyledHR />
+        <UserDetail label="Gender" display={user.gender} />
+        <StyledHR />
+        <UserDetail label="Location" display={user.location.timezone.description} />
+        <StyledHR />
+        <UserDetail label="Age" display={user.dob.age.toString()} />
+        <StyledHR />
+        <UserDetail label="Phone" display={user.phone} />
+      </ModalBody >
+    );
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -37,6 +55,10 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
       style={{ overflow: 'hidden' }}
     >
       <Header background={picture.large} />
+      <IconContext.Provider value={{ color: 'white', size: '1.5em' }}>
+        <StyledMdClose onClick={toggle} />
+      </IconContext.Provider>
+
       <PictureHeader>
         <Avatar background={picture.large} />
         <Name>
@@ -44,25 +66,26 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
         </Name>
       </PictureHeader>
 
-      <ModalBody style={containerStyle}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-      </ModalBody>
-
-      <ModalFooter style={containerStyle}>
-        <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-        <Button color="secondary" onClick={toggle}>Cancel</Button>
-      </ModalFooter>
+      {renderUserDetails()}
     </Modal>
   );
 };
 
 export default UserModal;
+
+const StyledMdClose: React.FC<any> = styled(MdClose)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 100;
+
+  -webkit-filter: drop-shadow(1px 1px 1px black);
+  -moz-filter: drop-shadow(1px 1px 1px black);
+  -o-filter: drop-shadow(1px 1px 1px black);
+  -ms-filter: drop-shadow(1px 1px 1px black);
+  filter: drop-shadow(1px 1px 1px black);
+`;
 
 interface HeaderProps {
   background: string;
@@ -109,4 +132,9 @@ const Name: React.FC = styled.h4`
   text-align: center;
   text-shadow: 1px 1px 4px black;
   color: white;
+`;
+
+const StyledHR: React.FC = styled.hr`
+  margin: 0.5rem 0;
+  border-top: 1px solid #ffc9d2;
 `;
