@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import TextHelper from '../utils/TextHelper';
+import UserModal from './UserModal';
 import { UserType } from '../types/UserType';
 import { zoomIn } from './animations';
 
@@ -9,29 +10,58 @@ interface Props {
   user: UserType;
 }
 
-const UserThumb: React.FC<Props> = ({ user }: Props) => {
-  const {
-    picture: { thumbnail },
-    name: { first, last },
-  }: UserType = user;
+interface State {
+  modalOpen: boolean;
+}
 
-  const displayName: string = `
-    ${TextHelper.capitalize(first)} ${TextHelper.capitalize(last)}
-  `;
+class UserThumb extends React.Component<Props> {
+  public state: State = {
+    modalOpen: false,
+  };
 
-  return (
-    <Thumb>
-      <ThumbImage background={thumbnail} />
-      <ThumbName>
-        {displayName}
-      </ThumbName>
-    </Thumb>
-  );
-};
+  public toggleModal = () => {
+    this.setState((prevState: State) => ({
+      modalOpen: !prevState.modalOpen,
+    }));
+  }
+
+  public render(): React.ReactNode {
+    const { modalOpen }: State = this.state;
+    const { user }: Props = this.props;
+    const {
+      picture: { thumbnail },
+      name: { first, last },
+    }: UserType = user;
+
+    const displayName: string = `
+      ${TextHelper.capitalize(first)} ${TextHelper.capitalize(last)}
+    `;
+
+    return (
+      <React.Fragment>
+        <Thumb onClick={this.toggleModal}>
+          <ThumbImage background={thumbnail} />
+          <ThumbName>
+            {displayName}
+          </ThumbName>
+        </Thumb>
+        <UserModal
+          isOpen={modalOpen}
+          toggle={this.toggleModal}
+          user={user}
+        />
+      </React.Fragment>
+    );
+  }
+}
 
 export default UserThumb;
 
-const Thumb: React.FC = styled.div`
+interface ThumbProps {
+  onClick: () => void;
+}
+
+const Thumb: React.FC<ThumbProps> = styled.div<ThumbProps>`
   margin: 10px 0;
   padding: 10px;
   border: 1px solid #dfdfdf;

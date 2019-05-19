@@ -46,8 +46,8 @@ class Users {
     dispatch: Dispatch,
   ) => {
     dispatch({
-      type: Users.SEARCH_USERS_TRIGGERED,
       payload: searchTerm,
+      type: Users.SEARCH_USERS_TRIGGERED,
     });
   }
 }
