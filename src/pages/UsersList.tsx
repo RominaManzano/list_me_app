@@ -86,7 +86,7 @@ class UsersList extends React.Component<Props, State> {
   public renderPlaceholders = (): React.ReactNode => {
     const placeholders: React.ReactNode[] = [];
 
-    for (let i = 0; i < 32; i++) {
+    for (let i: number = 0; i < 32; i = i + 1) {
       const placeholder: React.ReactNode = (
         <Col lg="3" md="6" key={i}>
           <PlaceholderThumb />
