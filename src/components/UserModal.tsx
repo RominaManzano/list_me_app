@@ -26,6 +26,7 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
 
   const displayName: string = `${TextHelper.capitalize(first)} ${TextHelper.capitalize(last)}`;
   const displayGender: string = TextHelper.capitalize(user.gender);
+  const displayCity: string = TextHelper.capitalize(user.location.city);
 
   const containerStyle: any = {
     background: 'white', margin: '-15px', padding: '30px',
@@ -38,7 +39,7 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
         <StyledHR />
         <UserDetail label="Gender" display={displayGender} />
         <StyledHR />
-        <UserDetail label="Location" display={user.location.timezone.description} />
+        <UserDetail label="Location" display={displayCity} />
         <StyledHR />
         <UserDetail label="Age" display={user.dob.age.toString()} />
         <StyledHR />
@@ -62,6 +63,9 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
         <Avatar background={picture.large} />
         <Name>
           {displayName}
+          <UserName>
+            {user.login.username}
+          </UserName>
         </Name>
       </PictureHeader>
 
@@ -107,7 +111,7 @@ const Header: React.FC<HeaderProps> = styled.div`
 
 const PictureHeader: React.FC = styled.div`
   position: absolute;
-  height: 250px;
+  height: 260px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -131,6 +135,12 @@ const Name: React.FC = styled.h4`
   text-align: center;
   text-shadow: 1px 1px 4px black;
   color: white;
+`;
+
+const UserName: React.FC = styled.h6`
+  text-align: center;
+  font-weight: 400;
+  opacity: 0.8;
 `;
 
 const StyledHR: React.FC = styled.hr`
