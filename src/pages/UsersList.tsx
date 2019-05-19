@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import {
   Col,
@@ -71,7 +72,10 @@ class UsersList extends React.Component<Props, State> {
     }
 
     return usersList.map((user: UserType) => (
-      <Col lg="3" key={user.login.username}>
+      <Col
+        key={user.login.username}
+        lg="3" md="6"
+      >
         <UserThumb user={user} />
       </Col>
     ));
@@ -87,9 +91,21 @@ class UsersList extends React.Component<Props, State> {
 
     return (
       <Container fluid={true}>
-        <h1>Users</h1>
+        <Title>
+          ListMeApp
+        </Title>
+        <Description>
+          Click on a user thumbnail to get more information. If you want to get
+          detailed contact information, click on the <b>More</b> link to see their profile.
+          <br />
+          Input a name or last name to search for a specific user.
+        </Description>
         <Row>
-          <Col xs="12">
+          <Col
+            lg={{ size: 4, offset: 4 }}
+            md={{ size: 6, offset: 3 }}
+            xs="12"
+          >
             <SearchBar
               term={searchTerm}
               onChange={this.handleSearchChange}
@@ -123,3 +139,16 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(UsersList);
+
+const Title: React.FC = styled.h2`
+  margin-top: 20px;
+  font-family: 'Baloo Bhai', cursive;
+  color: #f77d92;
+  text-align: center;
+`;
+
+const Description: React.FC = styled.p`
+  padding: 10px 0;
+  color: #797979;
+  text-align: center;
+`;

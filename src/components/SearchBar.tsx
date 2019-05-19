@@ -1,4 +1,6 @@
+// tslint:disable: no-any
 import React from 'react';
+import styled from 'styled-components';
 import {
   Button,
   Input,
@@ -26,15 +28,12 @@ const SearchBar: React.FC<Props> = (props: Props) => {
         <Input
           value={term}
           onChange={onChange}
-          placeholder="Input name..."
+          placeholder="Search user"
         />
         <InputGroupAddon addonType="append">
-          <Button
-            color="primary"
-            type="submit"
-          >
+          <SearchButton type="submit">
             <MdSearch />
-          </Button>
+          </SearchButton>
         </InputGroupAddon>
       </InputGroup>
     </form>
@@ -42,3 +41,20 @@ const SearchBar: React.FC<Props> = (props: Props) => {
 };
 
 export default SearchBar;
+
+const SearchButton: React.FC<any> = styled(Button)`
+  && {
+    background-color: #f77d92;
+    border-color: #f94d6b;
+
+    &:hover {
+      background-color: #f793a4;
+      border-color: #f77d92;
+    }
+
+    &&:active {
+      background-color: #f793a4;
+      border-color: #f77d92;
+    }
+  }
+`;
