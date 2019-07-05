@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import {
-  Col,
-  Container,
-  Row,
-} from 'reactstrap';
+import { Container, Grid } from '@material-ui/core';
 
 import Message from '../components/Message';
 import PlaceholderThumb from '../components/PlaceholderThumb';
@@ -47,7 +43,7 @@ class UsersList extends React.Component<Props, State> {
     });
   }
 
-  public handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  public handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     const { searchTerm }: State = this.state;
     const {
       fetchUsersList,
@@ -67,19 +63,21 @@ class UsersList extends React.Component<Props, State> {
     const { searchTerm }: State = this.state;
 
     return (
-      <Row>
-        <Col
-          lg={{ size: 4, offset: 4 }}
-          md={{ size: 6, offset: 3 }}
-          xs="12"
-        >
+      <Grid
+        container={true}
+        spacing={2}
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item={true} lg={4} md={6} xs={12}>
           <SearchBar
             term={searchTerm}
             onChange={this.handleSearchChange}
             onSubmit={this.handleSearchSubmit}
           />
-        </Col>
-      </Row>
+        </Grid>
+      </Grid>
     );
   }
 
@@ -88,15 +86,19 @@ class UsersList extends React.Component<Props, State> {
 
     for (let i: number = 0; i < 32; i = i + 1) {
       const placeholder: React.ReactNode = (
-        <Col lg="3" md="6" key={i}>
+        <Grid item={true} key={i} lg={3} md={6} xs={12}>
           <PlaceholderThumb />
-        </Col>
+        </Grid>
       );
 
       placeholders.push(placeholder);
     }
 
-    return placeholders;
+    return (
+      <Grid container={true} spacing={2}>
+        {placeholders}
+      </Grid>
+    );
   }
 
   public renderUsersList = (): React.ReactNode => {
@@ -127,16 +129,22 @@ class UsersList extends React.Component<Props, State> {
       );
     }
 
-    return usersList.map((user: UserType) => (
-      <Col key={user.login.username} lg="3" md="6">
+    const users: React.ReactNode = usersList.map((user: UserType) => (
+      <Grid item={true} key={user.login.username} lg={3} md={6} xs={12}>
         <UserThumb user={user} />
-      </Col>
+      </Grid>
     ));
+
+    return (
+      <Grid container={true} spacing={2}>
+        {users}
+      </Grid>
+    );
   }
 
   public render(): React.ReactNode {
     return (
-      <Container fluid={true}>
+      <Container>
         <Title>
           ListMeApp
         </Title>
@@ -153,9 +161,7 @@ class UsersList extends React.Component<Props, State> {
 
         <hr />
 
-        <StyledRow>
-          {this.renderUsersList()}
-        </StyledRow>
+        {this.renderUsersList()}
       </Container>
     );
   }
@@ -188,13 +194,4 @@ const Description: React.FC = styled.p`
   padding: 10px 0;
   color: #797979;
   text-align: center;
-`;
-
-const StyledRow: React.FC = styled(Row)`
-  height: 65vh;
-  overflow: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
