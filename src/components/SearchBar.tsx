@@ -2,16 +2,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  Button,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-} from 'reactstrap';
-import { MdSearch } from 'react-icons/md';
+  IconButton,
+  InputBase,
+  Paper,
+} from '@material-ui/core';
+import { Search } from '@material-ui/icons';
 
 interface Props {
   term: string;
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -24,37 +23,45 @@ const SearchBar: React.FC<Props> = (props: Props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <InputGroup>
-        <Input
+      <PaperContainer>
+        <InputBase
           value={term}
           onChange={onChange}
-          placeholder="Search user"
+          placeholder="Search User"
         />
-        <InputGroupAddon addonType="append">
-          <SearchButton type="submit">
-            <MdSearch />
-          </SearchButton>
-        </InputGroupAddon>
-      </InputGroup>
+        <SearchIconButton
+          arial-label="Search"
+          type="submit"
+        >
+          <Search />
+        </SearchIconButton>
+      </PaperContainer>
     </form>
   );
 };
 
 export default SearchBar;
 
-const SearchButton: React.FC<any> = styled(Button)`
+const PaperContainer: React.FC<any> = styled(Paper)`
   && {
-    background-color: #f77d92;
-    border-color: #f94d6b;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 4px 4px 16px;
+    width: 100%;
+    border-radius: 40px;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: unset;
+  }
+`;
+
+const SearchIconButton: React.FC<any> = styled(IconButton)`
+  && {
+    color: #f77d92;
 
     &:hover {
-      background-color: #f793a4;
-      border-color: #f77d92;
-    }
-
-    &&:active {
-      background-color: #f793a4;
-      border-color: #f77d92;
+      background-color: #f77d92;
+      color: white;
     }
   }
 `;

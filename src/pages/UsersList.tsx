@@ -36,7 +36,7 @@ class UsersList extends React.Component<Props, State> {
     }
   }
 
-  public handleSearchChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
+  public handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     this.setState({
       searchTerm: event.currentTarget.value,
@@ -68,7 +68,6 @@ class UsersList extends React.Component<Props, State> {
         spacing={2}
         direction="row"
         justify="center"
-        alignItems="center"
       >
         <Grid item={true} lg={4} md={6} xs={12}>
           <SearchBar
