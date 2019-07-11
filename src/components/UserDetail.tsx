@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  Col,
-  Row,
-} from 'reactstrap';
+import { Grid } from '@material-ui/core';
 
 interface Props {
   label: string;
@@ -12,18 +9,18 @@ interface Props {
 
 const UserDetail: React.FC<Props> = ({ label, display }: Props) => {
   return (
-    <Row>
-      <Col xs="12">
+    <React.Fragment>
+      <Grid item={true} xs={12}>
         <Label>
           {label}
         </Label>
-      </Col>
-      <Col xs="12">
+      </Grid>
+      <Grid item={true} xs={12}>
         <Display>
           {display}
         </Display>
-      </Col>
-    </Row>
+      </Grid>
+    </React.Fragment>
   );
 };
 
