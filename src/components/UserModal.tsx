@@ -2,11 +2,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  Modal,
-  ModalBody,
-} from 'reactstrap';
-import { IconContext } from 'react-icons';
-import { MdClose } from 'react-icons/md';
+  Dialog,
+  DialogContent,
+  IconButton,
+} from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 import TextHelper from '../utils/TextHelper';
 import UserDetail from './UserDetail';
@@ -28,13 +28,9 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
   const displayGender: string = TextHelper.capitalize(user.gender);
   const displayCity: string = TextHelper.capitalize(user.location.city);
 
-  const containerStyle: any = {
-    background: 'white', margin: '-15px', padding: '30px',
-  };
-
   const renderUserDetails: () => React.ReactNode = (): React.ReactNode => {
     return (
-      <ModalBody style={containerStyle}>
+      <DetailsContainer>
         <UserDetail label="Email" display={user.email} />
         <StyledHR />
         <UserDetail label="Gender" display={displayGender} />
@@ -44,50 +40,45 @@ const UserModal: React.FC<Props> = ({ isOpen, toggle, user }: Props) => {
         <UserDetail label="Age" display={user.dob.age.toString()} />
         <StyledHR />
         <UserDetail label="Phone" display={user.phone} />
-      </ModalBody >
+      </DetailsContainer>
     );
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      toggle={toggle}
-      style={{ overflow: 'hidden' }}
+    <Dialog
+      onClose={toggle}
+      open={isOpen}
+      maxWidth="sm"
+      fullWidth={true}
     >
-      <Header background={picture.large} />
-      <IconContext.Provider value={{ color: 'white', size: '1.5em' }}>
-        <StyledMdClose onClick={toggle} />
-      </IconContext.Provider>
-
-      <PictureHeader>
-        <Avatar background={picture.large} />
-        <Name>
-          {displayName}
-          <UserName>
-            {user.login.username}
-          </UserName>
-        </Name>
-      </PictureHeader>
-
-      {renderUserDetails()}
-    </Modal>
+      <DialogContentDetails>
+        <Header background={picture.large} />
+        <PictureHeader>
+          <IconButton aria-label="Close" onClick={toggle} style={{ alignSelf: 'flex-end' }}>
+            <Close />
+          </IconButton>
+          <Avatar background={picture.large} />
+          <Name>
+            {displayName}
+            <UserName>
+              {user.login.username}
+            </UserName>
+          </Name>
+        </PictureHeader>
+        {renderUserDetails()}
+      </DialogContentDetails>
+    </Dialog>
   );
 };
 
 export default UserModal;
 
-const StyledMdClose: React.FC<any> = styled(MdClose)`
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  cursor: pointer;
-  z-index: 100;
-
-  -webkit-filter: drop-shadow(1px 1px 1px black);
-  -moz-filter: drop-shadow(1px 1px 1px black);
-  -o-filter: drop-shadow(1px 1px 1px black);
-  -ms-filter: drop-shadow(1px 1px 1px black);
-  filter: drop-shadow(1px 1px 1px black);
+const DialogContentDetails: React.FC<any> = styled(DialogContent)`
+  && {
+    padding: 0;
+    overflow-y: unset;
+    background-color: #666;
+  }
 `;
 
 interface HeaderProps {
@@ -95,7 +86,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = styled.div`
-  margin: -15px;
   height: 300px;
   background-image: url(${({ background }: HeaderProps) => background});
   background-repeat: no-repeat;
@@ -111,12 +101,14 @@ const Header: React.FC<HeaderProps> = styled.div`
 
 const PictureHeader: React.FC = styled.div`
   position: absolute;
-  height: 260px;
+  top: 0;
+  height: 300px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding: 10px;
 `;
 
 const Avatar: React.FC<HeaderProps> = styled.div`
@@ -147,4 +139,11 @@ const UserName: React.FC = styled.div`
 const StyledHR: React.FC = styled.hr`
   margin: 0.5rem 0;
   border-top: 1px solid #ffc9d2;
+`;
+
+const DetailsContainer: React.FC = styled.div`
+  background: white;
+  margin: -15px;
+  padding: 30px;
+  position: relative;
 `;
