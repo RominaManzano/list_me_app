@@ -13,6 +13,7 @@ import SearchBar from '../components/SearchBar';
 import UserThumb from '../components/UserThumb';
 import Users, { UsersActions } from '../actions/Users';
 import { GlobalStore } from '../reducers/rootReducer';
+import { Title } from '../styles/TextStyles';
 import { UserStore } from '../reducers/users';
 import { UserType } from '../types/UserType';
 
@@ -176,13 +177,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(UsersList);
-
-const Title: React.FC = styled.h2`
-  margin-top: 20px;
-  font-family: 'Baloo Bhai', cursive;
-  color: #f77d92;
-  text-align: center;
-`;
 
 const Description: React.FC = styled.p`
   padding: 10px 0;
