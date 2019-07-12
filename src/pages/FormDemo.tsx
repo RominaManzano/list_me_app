@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import {
   Formik,
   Form,
-  Field,
   FormikProps,
 } from 'formik';
 
+import SelectField, { Option } from '../components/form/SelectField';
+import TextareaField from '../components/form/TextareaField';
 import TextField from '../components/form/TextField';
 import { Title } from '../styles/TextStyles';
 
 interface ValuesType {
   accepted: boolean;
+  age: number;
   city: string;
   description: string;
   gender: string;
@@ -21,6 +23,7 @@ interface ValuesType {
 
 const initialValues: ValuesType = {
   accepted: false,
+  age: 0,
   city: '',
   description: '',
   gender: 'male',
@@ -34,43 +37,54 @@ const FormDemo: React.FC = () => {
   };
 
   const displayForm: (formProps: FormikProps<ValuesType>) => React.ReactNode =
-    ({ isSubmitting }: FormikProps<ValuesType>) => (
-      <Form>
-        <FieldContainer>
-          <TextField
-            type="text"
-            name="name"
-            placeholder="Name"
-          />
-        </FieldContainer>
+    ({ isSubmitting }: FormikProps<ValuesType>) => {
+      const cityOptions: Option[] = [
+        { label: 'Rosario', value: 'Rosario' },
+        { label: 'Buenos Aires', value: 'Buenos Aires' },
+        { label: 'Córdoba', value: 'Córdoba' },
+      ];
 
-        <FieldContainer>
-          <Field
-            name="description"
-            component="textarea"
-            placeholder="Description"
-          />
-        </FieldContainer>
+      return (
+        <Form>
+          <FieldContainer>
+            <TextField
+              type="text"
+              name="name"
+              placeholder="Name"
+            />
+          </FieldContainer>
 
-        <FieldContainer>
-          <Field
-            name="city"
-            component="select"
-            placeholder="Select your city"
-          >
-            <option value="Rosario">Rosario</option>
-            <option value="Buenos Aires">Buenos Aires</option>
-            <option value="Cordoba">Córdoba</option>
-          </Field>
-        </FieldContainer>
+          <FieldContainer>
+            <TextField
+              type="number"
+              name="age"
+              placeholder="Age"
+            />
+          </FieldContainer>
 
-        <FieldContainer>
-          <button type="submit">
-            Submit
+          <FieldContainer>
+            <TextareaField
+              name="description"
+              placeholder="Description"
+            />
+          </FieldContainer>
+
+          <FieldContainer>
+            <SelectField
+              name="city"
+              options={cityOptions}
+              placeholder="Select your city"
+            />
+          </FieldContainer>
+
+          <FieldContainer>
+            <button type="submit">
+              Submit
           </button>
-        </FieldContainer>
-      </Form>
-    );
+          </FieldContainer>
+        </Form>
+      );
+    };
 
   return (
     <FormContainer>
