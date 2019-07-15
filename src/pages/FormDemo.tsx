@@ -9,6 +9,7 @@ import {
 import { Option } from '../components/form/SelectField';
 import {
   CheckboxField,
+  DatepickerField,
   RadioButtonField,
   SelectField,
   TextareaField,
@@ -21,6 +22,7 @@ interface ValuesType {
   age: number;
   city: string;
   description: string;
+  dob: string;
   gender: string;
   hobbies: string[];
   name: string;
@@ -32,6 +34,7 @@ const initialValues: ValuesType = {
   age: 0,
   city: '',
   description: '',
+  dob: '',
   gender: 'MALE',
   hobbies: [],
   name: '',
@@ -66,6 +69,10 @@ const FormDemo: React.FC = () => {
 
           <FieldContainer>
             <TextField type="number" name="age" placeholder="Age" />
+          </FieldContainer>
+
+          <FieldContainer>
+            <DatepickerField id="dob" name="dob" />
           </FieldContainer>
 
           <FieldContainer>
