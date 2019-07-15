@@ -22,6 +22,7 @@ interface ValuesType {
   city: string;
   description: string;
   gender: string;
+  hobbies: string[];
   name: string;
   tags: string[];
 }
@@ -32,6 +33,7 @@ const initialValues: ValuesType = {
   city: '',
   description: '',
   gender: 'MALE',
+  hobbies: [],
   name: '',
   tags: [],
 };
@@ -47,6 +49,13 @@ const FormDemo: React.FC = () => {
         { label: 'Rosario', value: 'Rosario' },
         { label: 'Buenos Aires', value: 'Buenos Aires' },
         { label: 'Córdoba', value: 'Córdoba' },
+      ];
+
+      const hobbiesOptions: Option[] = [
+        { label: 'Judo', value: 'Judo' },
+        { label: 'Reading', value: 'Reading' },
+        { label: 'Netflix', value: 'Netflix' },
+        { label: 'Football', value: 'Football' },
       ];
 
       return (
@@ -89,6 +98,15 @@ const FormDemo: React.FC = () => {
               id="accepted"
               name="accepted"
               label="Do you accept the terms and conditions?"
+            />
+          </FieldContainer>
+
+          <FieldContainer>
+            <SelectField
+              name="hobbies"
+              options={hobbiesOptions}
+              placeholder="Select your hobbies"
+              isMulti={true}
             />
           </FieldContainer>
 
