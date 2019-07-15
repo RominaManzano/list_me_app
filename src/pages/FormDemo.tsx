@@ -8,6 +8,7 @@ import {
 
 import { Option } from '../components/form/SelectField';
 import {
+  CheckboxField,
   RadioButtonField,
   SelectField,
   TextareaField,
@@ -84,7 +85,15 @@ const FormDemo: React.FC = () => {
           </FieldContainer>
 
           <FieldContainer>
-            <button type="submit">
+            <CheckboxField
+              id="accepted"
+              name="accepted"
+              label="Do you accept the terms and conditions?"
+            />
+          </FieldContainer>
+
+          <FieldContainer>
+            <button type="submit" disabled={isSubmitting}>
               Submit
             </button>
           </FieldContainer>

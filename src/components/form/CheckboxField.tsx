@@ -7,12 +7,12 @@ interface Props {
   name: string;
 }
 
-type RenderRadioButton = (props: FieldProps) => React.ReactNode;
+type RenderCheckbox = (props: FieldProps) => React.ReactNode;
 
-const RadioButtonField: React.FC<Props> = (props: Props) => {
-  const { name, label, id }: Props = props;
+const CheckboxField: React.FC<Props> = (props: Props) => {
+  const { id, label, name }: Props = props;
 
-  const renderRadioButton: RenderRadioButton = (fieldProps: FieldProps) => {
+  const renderCheckbox: RenderCheckbox = (fieldProps: FieldProps) => {
     const { field: {
       onChange,
       value,
@@ -24,9 +24,9 @@ const RadioButtonField: React.FC<Props> = (props: Props) => {
           id={id}
           name={name}
           onChange={onChange}
-          type="radio"
-          checked={id === value}
-          value={id}
+          type="checkbox"
+          value={value}
+          checked={value}
         />
         <label htmlFor={id}>
           {label}
@@ -38,9 +38,9 @@ const RadioButtonField: React.FC<Props> = (props: Props) => {
   return (
     <Field
       name={name}
-      render={renderRadioButton}
+      render={renderCheckbox}
     />
   );
 };
 
-export default RadioButtonField;
+export default CheckboxField;
