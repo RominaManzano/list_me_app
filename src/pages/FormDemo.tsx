@@ -6,9 +6,13 @@ import {
   FormikProps,
 } from 'formik';
 
-import SelectField, { Option } from '../components/form/SelectField';
-import TextareaField from '../components/form/TextareaField';
-import TextField from '../components/form/TextField';
+import { Option } from '../components/form/SelectField';
+import {
+  RadioButtonField,
+  SelectField,
+  TextareaField,
+  TextField,
+} from '../components/form';
 import { Title } from '../styles/TextStyles';
 
 interface ValuesType {
@@ -26,7 +30,7 @@ const initialValues: ValuesType = {
   age: 0,
   city: '',
   description: '',
-  gender: 'male',
+  gender: 'MALE',
   name: '',
   tags: [],
 };
@@ -47,26 +51,15 @@ const FormDemo: React.FC = () => {
       return (
         <Form>
           <FieldContainer>
-            <TextField
-              type="text"
-              name="name"
-              placeholder="Name"
-            />
+            <TextField type="text" name="name" placeholder="Name" />
           </FieldContainer>
 
           <FieldContainer>
-            <TextField
-              type="number"
-              name="age"
-              placeholder="Age"
-            />
+            <TextField type="number" name="age" placeholder="Age" />
           </FieldContainer>
 
           <FieldContainer>
-            <TextareaField
-              name="description"
-              placeholder="Description"
-            />
+            <TextareaField name="description" placeholder="Description" />
           </FieldContainer>
 
           <FieldContainer>
@@ -78,9 +71,22 @@ const FormDemo: React.FC = () => {
           </FieldContainer>
 
           <FieldContainer>
+            <RadioButtonField
+              id="MALE"
+              name="gender"
+              label="Male"
+            />
+            <RadioButtonField
+              id="FEMALE"
+              name="gender"
+              label="Female"
+            />
+          </FieldContainer>
+
+          <FieldContainer>
             <button type="submit">
               Submit
-          </button>
+            </button>
           </FieldContainer>
         </Form>
       );

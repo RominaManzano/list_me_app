@@ -17,7 +17,7 @@ interface Props {
 type RenderSelect = (props: FieldProps) => React.ReactNode;
 type HandleChange = (option: any) => void;
 
-export const SelectField: React.FC<Props> = (props: Props) => {
+const SelectField: React.FC<Props> = (props: Props) => {
   const {
     name,
     options,
