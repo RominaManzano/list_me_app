@@ -9,15 +9,11 @@ interface Props {
 
 type RenderRadioButton = (props: FieldProps) => React.ReactNode;
 
-const RadioButtonField: React.FC<Props> = (props: Props) => {
-  const { name, label, id }: Props = props;
-
-  const renderRadioButton: RenderRadioButton = (fieldProps: FieldProps) => {
-    const { field: {
-      onChange,
-      value,
-    } }: FieldProps = fieldProps;
-
+const RadioButtonField: React.FC<Props> = ({ name, label, id }: Props) => {
+  const renderRadioButton: RenderRadioButton = ({ field: {
+    onChange,
+    value,
+  } }: FieldProps) => {
     return (
       <React.Fragment>
         <input

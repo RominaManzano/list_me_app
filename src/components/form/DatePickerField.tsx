@@ -9,9 +9,7 @@ interface Props {
 type RenderDatepicker = (props: FieldProps) => React.ReactNode;
 
 const DatePickerField: React.FC<Props> = ({ id, name }: Props) => {
-  const renderDatepicker: RenderDatepicker = (fieldProps: FieldProps) => {
-    const { field }: FieldProps = fieldProps;
-
+  const renderDatepicker: RenderDatepicker = ({ field }: FieldProps) => {
     return (
       <input
         {...field}

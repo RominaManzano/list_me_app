@@ -9,15 +9,11 @@ interface Props {
 
 type RenderCheckbox = (props: FieldProps) => React.ReactNode;
 
-const CheckboxField: React.FC<Props> = (props: Props) => {
-  const { id, label, name }: Props = props;
-
-  const renderCheckbox: RenderCheckbox = (fieldProps: FieldProps) => {
-    const { field: {
-      onChange,
-      value,
-    } }: FieldProps = fieldProps;
-
+const CheckboxField: React.FC<Props> = ({ id, label, name }: Props) => {
+  const renderCheckbox: RenderCheckbox = ({ field: {
+    onChange,
+    value,
+  } }: FieldProps) => {
     return (
       <React.Fragment>
         <input
