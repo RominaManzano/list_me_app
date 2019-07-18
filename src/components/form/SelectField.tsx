@@ -3,32 +3,39 @@ import React from 'react';
 import Select from 'react-select';
 import { Field, FieldProps } from 'formik';
 
-export interface Option {
-  label: string;
-  value: string;
-}
+import Option from './OptionType';
 
-interface Props {
-  options: Option[];
-  name: string;
-  placeholder?: string;
+export interface SelectProps {
+  autoFocus?: boolean;
+  className?: string;
+  id?: string | null;
+  isDisabled?: boolean;
+  isLoading?: boolean;
   isMulti?: boolean;
   isSearchable?: boolean;
+  name: string;
+  options: Option[];
+  placeholder?: string;
+  style?: object;
 }
 
-type RenderSelect = (props: FieldProps) => React.ReactNode;
-type GetValue = () => any;
-type HandleChange = (option: any) => void;
+export type RenderSelect = (props: FieldProps) => React.ReactNode;
+export type GetValue = () => any;
+export type HandleChange = (option: any) => void;
 
-const SelectField: React.FC<Props> = (props: Props) => {
-  const {
-    isMulti,
-    isSearchable,
-    name,
-    options,
-    placeholder,
-  }: Props = props;
-
+const SelectField: React.FC<SelectProps> = ({
+  autoFocus,
+  className,
+  id,
+  isDisabled,
+  isLoading,
+  isMulti,
+  isSearchable,
+  name,
+  options,
+  placeholder,
+  style,
+}: SelectProps) => {
   const renderSelect: RenderSelect = (fieldProps: FieldProps) => {
     const { form }: FieldProps = fieldProps;
 
@@ -55,13 +62,19 @@ const SelectField: React.FC<Props> = (props: Props) => {
 
     return (
       <Select
-        name={name}
-        values={getValue()}
-        options={options}
-        placeholder={placeholder}
-        onChange={handleChange}
+        autoFocus={autoFocus}
+        className={className}
+        id={id || name}
+        isDisabled={isDisabled}
+        isLoading={isLoading}
         isMulti={isMulti}
         isSearchable={isSearchable}
+        name={name}
+        onChange={handleChange}
+        options={options}
+        placeholder={placeholder}
+        styles={style}
+        values={getValue()}
       />
     );
   };
@@ -72,6 +85,18 @@ const SelectField: React.FC<Props> = (props: Props) => {
       render={renderSelect}
     />
   );
+};
+
+SelectField.defaultProps = {
+  autoFocus: false,
+  className: '',
+  id: null,
+  isDisabled: false,
+  isLoading: false,
+  isMulti: false,
+  isSearchable: false,
+  placeholder: '',
+  style: {},
 };
 
 export default SelectField;

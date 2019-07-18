@@ -5,16 +5,16 @@ import {
   Form,
   FormikProps,
 } from 'formik';
-
-import { Option } from '../components/form/SelectField';
 import {
   CheckboxField,
   DatepickerField,
+  OptionType,
   RadioButtonField,
   SelectField,
   TextareaField,
   TextField,
-} from '../components/form';
+} from 'formik_typescript_ui';
+
 import { Title } from '../styles/TextStyles';
 
 interface ValuesType {
@@ -26,6 +26,7 @@ interface ValuesType {
   gender: string;
   hobbies: string[];
   name: string;
+  password: string;
   tags: string[];
 }
 
@@ -38,6 +39,7 @@ const initialValues: ValuesType = {
   gender: 'MALE',
   hobbies: [],
   name: '',
+  password: '',
   tags: [],
 };
 
@@ -48,13 +50,13 @@ const FormDemo: React.FC = () => {
 
   const displayForm: (formProps: FormikProps<ValuesType>) => React.ReactNode =
     ({ isSubmitting }: FormikProps<ValuesType>) => {
-      const cityOptions: Option[] = [
+      const cityOptions: OptionType[] = [
         { label: 'Rosario', value: 'Rosario' },
         { label: 'Buenos Aires', value: 'Buenos Aires' },
         { label: 'Córdoba', value: 'Córdoba' },
       ];
 
-      const hobbiesOptions: Option[] = [
+      const hobbiesOptions: OptionType[] = [
         { label: 'Judo', value: 'Judo' },
         { label: 'Reading', value: 'Reading' },
         { label: 'Netflix', value: 'Netflix' },
@@ -64,11 +66,31 @@ const FormDemo: React.FC = () => {
       return (
         <Form>
           <FieldContainer>
-            <TextField type="text" name="name" placeholder="Name" />
+            <TextField
+              type="text"
+              name="name"
+              placeholder="Name"
+              className="form-control"
+              style={{ borderColor: 'blue' }}
+            />
           </FieldContainer>
 
           <FieldContainer>
-            <TextField type="number" name="age" placeholder="Age" />
+            <TextField
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="form-control"
+            />
+          </FieldContainer>
+
+          <FieldContainer>
+            <TextField
+              type="number"
+              name="age"
+              placeholder="Age"
+              className="form-control"
+            />
           </FieldContainer>
 
           <FieldContainer>
