@@ -6,18 +6,32 @@ import {
   FormikProps,
 } from 'formik';
 import {
-  CheckboxField,
+  // CheckboxField,
   DatepickerField,
   OptionType,
-  RadioButtonField,
   SelectField,
   TextareaField,
   TextField,
 } from 'formik_typescript_ui';
 
+import {
+  CheckboxField,
+  CheckboxGroup,
+  RadioButtonGroup,
+} from '../components/form';
+import CheckOptionType from '../components/form/CheckOptionType';
+import RadioOptionType from '../components/form/RadioOptionType';
+
 import { Title } from '../styles/TextStyles';
 
 interface ValuesType {
+  abilities: {
+    listening: boolean;
+    maths: boolean;
+    reading: boolean;
+    sports: boolean;
+    writting: boolean;
+  };
   accepted: boolean;
   age: number;
   city: string;
@@ -31,6 +45,13 @@ interface ValuesType {
 }
 
 const initialValues: ValuesType = {
+  abilities: {
+    listening: false,
+    maths: false,
+    reading: false,
+    sports: false,
+    writting: false,
+  },
   accepted: false,
   age: 0,
   city: '',
@@ -61,6 +82,19 @@ const FormDemo: React.FC = () => {
         { label: 'Reading', value: 'Reading' },
         { label: 'Netflix', value: 'Netflix' },
         { label: 'Football', value: 'Football' },
+      ];
+
+      const radioOptions: RadioOptionType[] = [
+        { id: 'MALE', label: 'Male' },
+        { id: 'FEMALE', label: 'Female' },
+      ];
+
+      const checkOptions: CheckOptionType[] = [
+        { label: 'Listening', name: 'abilities.listening' },
+        { label: 'Maths', name: 'abilities.maths' },
+        { label: 'Reading', name: 'abilities.reading' },
+        { label: 'Sports', name: 'abilities.sports' },
+        { label: 'Writting', name: 'abilities.writting' },
       ];
 
       return (
@@ -94,11 +128,19 @@ const FormDemo: React.FC = () => {
           </FieldContainer>
 
           <FieldContainer>
-            <DatepickerField id="dob" name="dob" />
+            <DatepickerField
+              id="dob"
+              name="dob"
+              className="form-control"
+            />
           </FieldContainer>
 
           <FieldContainer>
-            <TextareaField name="description" placeholder="Description" />
+            <TextareaField
+              name="description"
+              placeholder="Description"
+              className="form-control"
+            />
           </FieldContainer>
 
           <FieldContainer>
@@ -110,23 +152,10 @@ const FormDemo: React.FC = () => {
           </FieldContainer>
 
           <FieldContainer>
-            <RadioButtonField
-              id="MALE"
+            <RadioButtonGroup
+              options={radioOptions}
               name="gender"
-              label="Male"
-            />
-            <RadioButtonField
-              id="FEMALE"
-              name="gender"
-              label="Female"
-            />
-          </FieldContainer>
-
-          <FieldContainer>
-            <CheckboxField
-              id="accepted"
-              name="accepted"
-              label="Do you accept the terms and conditions?"
+              labelStyle={{ marginLeft: '5px' }}
             />
           </FieldContainer>
 
@@ -136,6 +165,20 @@ const FormDemo: React.FC = () => {
               options={hobbiesOptions}
               placeholder="Select your hobbies"
               isMulti={true}
+            />
+          </FieldContainer>
+
+          <FieldContainer>
+            <CheckboxGroup
+              options={checkOptions}
+            />
+          </FieldContainer>
+
+          <FieldContainer>
+            <CheckboxField
+              id="accepted"
+              name="accepted"
+              label="Do you accept the terms and conditions?"
             />
           </FieldContainer>
 

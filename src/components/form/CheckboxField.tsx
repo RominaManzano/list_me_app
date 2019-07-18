@@ -1,15 +1,29 @@
 import React from 'react';
 import { Field, FieldProps } from 'formik';
 
-interface Props {
-  id: string;
+export interface CheckboxProps {
+  className?: string;
+  classNameLabel?: string;
+  disabled?: boolean;
+  id?: string | null;
   label: string;
+  labelStyle?: object;
   name: string;
+  style?: object;
 }
 
-type RenderCheckbox = (props: FieldProps) => React.ReactNode;
+export type RenderCheckbox = (props: FieldProps) => React.ReactNode;
 
-const CheckboxField: React.FC<Props> = ({ id, label, name }: Props) => {
+const CheckboxField: React.FC<CheckboxProps> = ({
+  className,
+  classNameLabel,
+  disabled,
+  id,
+  label,
+  labelStyle,
+  name,
+  style,
+}: CheckboxProps) => {
   const renderCheckbox: RenderCheckbox = ({ field: {
     onChange,
     value,
@@ -17,14 +31,21 @@ const CheckboxField: React.FC<Props> = ({ id, label, name }: Props) => {
     return (
       <React.Fragment>
         <input
-          id={id}
+          checked={value}
+          className={className}
+          disabled={disabled}
+          id={id || name}
           name={name}
           onChange={onChange}
+          style={style}
           type="checkbox"
           value={value}
-          checked={value}
         />
-        <label htmlFor={id}>
+        <label
+          htmlFor={id || name}
+          className={classNameLabel}
+          style={labelStyle}
+        >
           {label}
         </label>
       </React.Fragment>
@@ -37,6 +58,15 @@ const CheckboxField: React.FC<Props> = ({ id, label, name }: Props) => {
       render={renderCheckbox}
     />
   );
+};
+
+CheckboxField.defaultProps = {
+  className: '',
+  classNameLabel: '',
+  disabled: false,
+  id: null,
+  labelStyle: {},
+  style: {},
 };
 
 export default CheckboxField;
