@@ -36,12 +36,14 @@ class Users {
       return;
     }
 
-    setTimeout(() => {
-      dispatch({
-        payload: res.data,
-        type: Users.FETCH_USERS_LIST_SUCCESS,
-      });
-    }, 800);
+    setTimeout(
+      () => {
+        dispatch({
+          payload: res.data,
+          type: Users.FETCH_USERS_LIST_SUCCESS,
+        });
+      },
+      800);
   }
 
   public static searchUsers = (searchTerm: string) => (
